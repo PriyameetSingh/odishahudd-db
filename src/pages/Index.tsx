@@ -8,6 +8,9 @@ import { SchemesList } from "@/components/dashboard/SchemesList";
 import { ActionItemsTable } from "@/components/dashboard/ActionItemsTable";
 import { BudgetTable } from "@/components/dashboard/BudgetTable";
 import { AIInsights } from "@/components/dashboard/AIInsights";
+import { SmartAlerts } from "@/components/dashboard/SmartAlerts";
+import { TrendForecasting } from "@/components/dashboard/TrendForecasting";
+import { MeetingNotes } from "@/components/dashboard/MeetingNotes";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -28,6 +31,9 @@ const Index = () => {
                 {activeTab === "financial" && "Financial Progress"}
                 {activeTab === "schemes" && "Schemes & KPIs"}
                 {activeTab === "actions" && "Action Items"}
+                {activeTab === "alerts" && "Smart Alerts"}
+                {activeTab === "forecasting" && "Trend Forecasting"}
+                {activeTab === "meetings" && "Meeting Notes & Decisions"}
                 {activeTab === "ai-insights" && "AI Insights"}
               </h1>
               <p className="text-sm text-muted-foreground mt-1">
@@ -35,6 +41,9 @@ const Index = () => {
                 {activeTab === "financial" && "Budget vs Expenditure Analysis for FY 2025-26"}
                 {activeTab === "schemes" && "Comprehensive view of all schemes with Key Performance Indicators"}
                 {activeTab === "actions" && "Track action items and decisions from dashboard meetings"}
+                {activeTab === "alerts" && "Proactive notifications for KPIs below thresholds"}
+                {activeTab === "forecasting" && "AI-powered predictions for year-end scheme performance"}
+                {activeTab === "meetings" && "Track decisions from dashboard meetings with outcomes"}
                 {activeTab === "ai-insights" && "Ask questions about dashboard data using AI"}
               </p>
             </div>
@@ -60,6 +69,18 @@ const Index = () => {
 
             {activeTab === "actions" && (
               <ActionItemsTable />
+            )}
+
+            {activeTab === "alerts" && (
+              <SmartAlerts />
+            )}
+
+            {activeTab === "forecasting" && (
+              <TrendForecasting />
+            )}
+
+            {activeTab === "meetings" && (
+              <MeetingNotes />
             )}
 
             {activeTab === "ai-insights" && (
