@@ -12,7 +12,10 @@ import {
   GraduationCap,
   ChevronDown,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Bell,
+  TrendingUp,
+  BookOpen
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -43,6 +46,9 @@ export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
     { id: "financial", label: "Financial Progress", icon: <PieChart className="h-4 w-4" /> },
     { id: "schemes", label: "Schemes & KPIs", icon: <FileText className="h-4 w-4" /> },
     { id: "actions", label: "Action Items", icon: <ClipboardList className="h-4 w-4" /> },
+    { id: "alerts", label: "Smart Alerts", icon: <Bell className="h-4 w-4" /> },
+    { id: "forecasting", label: "Trend Forecasting", icon: <TrendingUp className="h-4 w-4" /> },
+    { id: "meetings", label: "Meeting Notes", icon: <BookOpen className="h-4 w-4" /> },
     { id: "ai-insights", label: "AI Insights", icon: <Sparkles className="h-4 w-4" /> },
   ];
 
