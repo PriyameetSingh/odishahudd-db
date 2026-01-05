@@ -1,8 +1,11 @@
-import { AlertTriangle, AlertCircle, TrendingDown, Clock, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, AlertCircle, TrendingDown, Clock, CheckCircle2, Mail, Send } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface Alert {
   id: string;
@@ -119,6 +122,48 @@ const severityConfig = {
 export const SmartAlerts = () => {
   const [alerts, setAlerts] = useState(alertsData);
   const [filter, setFilter] = useState<"all" | "critical" | "warning" | "info">("all");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const sendEmailNotification = async () => {
+    if (!recipientEmail) {
+      toast.error("Please enter an email address");
+      return;
+    }
+
+    const unacknowledgedAlerts = alerts.filter((a) => !a.acknowledged);
+    if (unacknowledgedAlerts.length === 0) {
+      toast.info("No active alerts to send");
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-alert-email", {
+        body: {
+          recipientEmail,
+          alerts: unacknowledgedAlerts.map((a) => ({
+            severity: a.severity,
+            title: a.title,
+            description: a.description,
+            scheme: a.scheme,
+            metric: a.metric,
+            currentValue: a.currentValue,
+            threshold: a.threshold,
+          })),
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success(`Alert email sent to ${recipientEmail}`);
+    } catch (error: any) {
+      console.error("Email send error:", error);
+      toast.error(error.message || "Failed to send email notification");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   const acknowledgeAlert = (id: string) => {
     setAlerts((prev) =>
@@ -175,6 +220,36 @@ export const SmartAlerts = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Email Notification */}
+      <Card className="border-primary/20">
+        <CardContent className="pt-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Mail className="h-5 w-5 text-primary" />
+            <h3 className="font-semibold">Email Notifications</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mb-4">
+            Send an email summary of all active alerts to stakeholders.
+          </p>
+          <div className="flex gap-2 flex-col sm:flex-row">
+            <Input
+              type="email"
+              placeholder="Enter recipient email..."
+              value={recipientEmail}
+              onChange={(e) => setRecipientEmail(e.target.value)}
+              className="flex-1"
+            />
+            <Button
+              onClick={sendEmailNotification}
+              disabled={isSending || !recipientEmail}
+              className="gap-2"
+            >
+              <Send className="h-4 w-4" />
+              {isSending ? "Sending..." : "Send Alert"}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Filter Buttons */}
       <div className="flex gap-2 flex-wrap">
