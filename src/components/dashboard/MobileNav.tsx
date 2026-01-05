@@ -1,4 +1,4 @@
-import { LayoutDashboard, PieChart, FileText, ClipboardList } from "lucide-react";
+import { LayoutDashboard, PieChart, FileText, ClipboardList, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface MobileNavProps {
@@ -12,6 +12,7 @@ export const MobileNav = ({ activeTab, setActiveTab }: MobileNavProps) => {
     { id: "financial", label: "Financial", icon: <PieChart className="h-5 w-5" /> },
     { id: "schemes", label: "Schemes", icon: <FileText className="h-5 w-5" /> },
     { id: "actions", label: "Actions", icon: <ClipboardList className="h-5 w-5" /> },
+    { id: "ai-insights", label: "AI", icon: <Sparkles className="h-5 w-5" /> },
   ];
 
   return (

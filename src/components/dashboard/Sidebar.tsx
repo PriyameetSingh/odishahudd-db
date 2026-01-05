@@ -11,7 +11,8 @@ import {
   Leaf,
   GraduationCap,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,7 @@ export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
     { id: "financial", label: "Financial Progress", icon: <PieChart className="h-4 w-4" /> },
     { id: "schemes", label: "Schemes & KPIs", icon: <FileText className="h-4 w-4" /> },
     { id: "actions", label: "Action Items", icon: <ClipboardList className="h-4 w-4" /> },
+    { id: "ai-insights", label: "AI Insights", icon: <Sparkles className="h-4 w-4" /> },
   ];
 
   return (
