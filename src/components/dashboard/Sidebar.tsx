@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { verticals } from "@/data/dashboardData";
-import UploadBox from "./UploadBox";
 
 interface SidebarProps {
   activeTab: string;
@@ -116,7 +115,6 @@ export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             <p className="py-1">• SAHAJOG App</p>
             <p className="py-1">• Janasunani Portal</p>
           </div>
-          <UploadBox />
         </div>
       </ScrollArea>
 

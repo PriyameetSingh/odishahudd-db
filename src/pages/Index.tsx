@@ -11,7 +11,6 @@ import { AIInsights } from "@/components/dashboard/AIInsights";
 import { SmartAlerts } from "@/components/dashboard/SmartAlerts";
 import { TrendForecasting } from "@/components/dashboard/TrendForecasting";
 import { MeetingNotes } from "@/components/dashboard/MeetingNotes";
-import UploadBox from "@/components/dashboard/UploadBox";
 import { TransformedData } from "@/utils/tranformExcelData";
 import { 
   financialProgressSummary as initialFinancial, 
@@ -104,7 +103,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header onDataUpload={handleDataUpload} />
       
       <div className="flex">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -134,9 +133,6 @@ const Index = () => {
                   {activeTab === "meetings" && "Track decisions from dashboard meetings with outcomes"}
                   {activeTab === "ai-insights" && "Ask questions about dashboard data using AI"}
                 </p>
-              </div>
-              <div className="w-full md:w-80">
-                <UploadBox onDataUpload={handleDataUpload} />
               </div>
             </div>
 
