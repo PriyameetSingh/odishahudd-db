@@ -13,9 +13,17 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { schemesData, totalBudgetSummary } from "@/data/dashboardData";
+import { schemesData as defaultSchemesData, totalBudgetSummary as defaultTotalBudgetSummary, Scheme, KPI } from "@/data/dashboardData";
 
-export const OverviewStats = () => {
+interface OverviewStatsProps {
+  schemesData?: Scheme[];
+  totalBudgetSummary?: typeof defaultTotalBudgetSummary;
+}
+
+export const OverviewStats = ({ 
+  schemesData = defaultSchemesData, 
+  totalBudgetSummary = defaultTotalBudgetSummary 
+}: OverviewStatsProps) => {
   // Calculate scheme statistics
   const totalKpis = schemesData.reduce((acc, scheme) => acc + scheme.kpis.length, 0);
   

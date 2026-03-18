@@ -4,9 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SchemeCard } from "./SchemeCard";
-import { schemesData } from "@/data/dashboardData";
+import { schemesData as defaultSchemesData, Scheme, SchemeFinancial } from "@/data/dashboardData";
 
-export const SchemesList = () => {
+interface SchemesListProps {
+  schemesData?: Scheme[];
+  schemeFinancialData?: SchemeFinancial[];
+}
+
+export const SchemesList = ({ 
+  schemesData = defaultSchemesData,
+  schemeFinancialData // we don't use it directly here but might need it later or in subcomponents
+}: SchemesListProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");

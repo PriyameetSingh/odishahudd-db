@@ -5,9 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { schemeFinancialData, verticals } from "@/data/dashboardData";
+import { schemeFinancialData as defaultSchemeFinancialData, verticals, SchemeFinancial } from "@/data/dashboardData";
 
-export const BudgetTable = () => {
+interface BudgetTableProps {
+  schemeFinancialData?: SchemeFinancial[];
+}
+
+export const BudgetTable = ({ 
+  schemeFinancialData = defaultSchemeFinancialData 
+}: BudgetTableProps) => {
   const [sortField, setSortField] = useState<string>("id");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [selectedVertical, setSelectedVertical] = useState<string>("all");
@@ -26,8 +32,8 @@ export const BudgetTable = () => {
   );
 
   const sortedData = [...filteredData].sort((a, b) => {
-    let aValue: any = a[sortField as keyof typeof a];
-    let bValue: any = b[sortField as keyof typeof b];
+    let aValue = a[sortField as keyof typeof a] as string | number | null;
+    let bValue = b[sortField as keyof typeof b] as string | number | null;
     
     if (aValue === null) aValue = -1;
     if (bValue === null) bValue = -1;

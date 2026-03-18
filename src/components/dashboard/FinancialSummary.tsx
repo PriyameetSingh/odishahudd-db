@@ -1,9 +1,24 @@
 import { ArrowUp, ArrowDown, IndianRupee, TrendingUp, Wallet, PiggyBank } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { financialProgressSummary, transferFromState, totalBudgetSummary } from "@/data/dashboardData";
+import { 
+  financialProgressSummary as defaultFinancialProgressSummary, 
+  transferFromState as defaultTransferFromState, 
+  totalBudgetSummary as defaultTotalBudgetSummary,
+  FinancialProgress
+} from "@/data/dashboardData";
 
-export const FinancialSummary = () => {
+interface FinancialSummaryProps {
+  financialProgressSummary?: FinancialProgress[];
+  transferFromState?: FinancialProgress[];
+  totalBudgetSummary?: typeof defaultTotalBudgetSummary;
+}
+
+export const FinancialSummary = ({
+  financialProgressSummary = defaultFinancialProgressSummary,
+  transferFromState = defaultTransferFromState,
+  totalBudgetSummary = defaultTotalBudgetSummary
+}: FinancialSummaryProps) => {
   const getProgressColor = (percentage: number) => {
     if (percentage >= 70) return "bg-success";
     if (percentage >= 40) return "bg-warning";
